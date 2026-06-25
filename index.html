@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bay Area Trip · July 4–11</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4943A;
+      --gold-light: #F2E2C4;
+      --ocean: #2B5B84;
+      --ocean-light: #E8F0F7;
+      --fog: #F5F3EF;
+      --ink: #1A1A1A;
+      --ink-secondary: #5C5C5C;
+      --white: #FFFFFF;
+      --redwood: #8B3A2F;
+      --sage: #6B8E6B;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0.05) 60%,
+          rgba(255,255,255,0.9) 100%),
+        linear-gradient(135deg, var(--ocean) 0%, #4A8BBE 40%, var(--gold) 100%);
+      color: var(--white);
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero-dates {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ── Overview ── */
+    .overview {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .overview p {
+      font-size: 1.05rem;
+      color: var(--ink-secondary);
+      line-height: 1.9;
+    }
+
+    .overview .highlight {
+      display: inline-flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    .overview .highlight span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .highlight .num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--ocean);
+    }
+
+    .highlight .label {
+      font-size: 0.75rem;
+      color: var(--ink-secondary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Day Section ── */
+    .day {
+      padding: 4rem 2rem;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .day:nth-child(even) {
+      background: var(--fog);
+    }
+
+    .day-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .day-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .day-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .day-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .day-date {
+      font-size: 0.85rem;
+      color: var(--ink-secondary);
+      margin-bottom: 1.5rem;
+      padding-left: 0;
+    }
+
+    .day-narrative {
+      font-size: 0.95rem;
+      color: var(--ink-secondary);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    /* ── Stop Card ── */
+    .stop {
+      background: var(--white);
+      border: 1px solid #E8E8E8;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .day:nth-child(even) .stop {
+      border-color: #DDD;
+    }
+
+    .stop:hover {
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .stop-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stop-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .stop-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ocean);
+      background: var(--ocean-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .stop-notes {
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    .stop-link {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: var(--ocean);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .stop-link:hover { text-decoration: underline; }
+
+    /* ── Reminders ── */
+    .reminders {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      border-top: 1px solid #EBEBEB;
+    }
+
+    .reminders h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .reminder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .reminder-card {
+      padding: 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #E8E8E8;
+      background: var(--fog);
+    }
+
+    .reminder-card .rc-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .reminder-card .rc-title .emoji {
+      font-size: 1.1rem;
+    }
+
+    .reminder-card p {
+      font-size: 0.85rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+      border-top: 1px solid #EBEBEB;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .day { padding: 3rem 1.25rem; }
+      .stop { padding: 1.25rem; }
+      .day-header { flex-direction: column; gap: 0.25rem; }
+      .overview .highlight { gap: 1.5rem; }
+      .reminder-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-eyebrow">Santa Clara · San Francisco · Monterey</div>
+    <h1>Bay Area, July 2026</h1>
+    <div class="hero-dates">7.4 Fri — 7.11 Fri</div>
+    <div class="hero-scroll">↓ scroll</div>
+  </section>
+
+  <section class="overview">
+    <p>
+      从 Santa Clara 出发，轻松节奏探索湾区。自然海岸、城市文化、硅谷科技三条线交替，不赶路，不特种兵。朋友有车，灵活调整。
+    </p>
+    <div class="highlight">
+      <span><span class="num">6.5</span><span class="label">天</span></span>
+      <span><span class="num">12</span><span class="label">个地点</span></span>
+      <span><span class="num">3</span><span class="label">条主线</span></span>
+    </div>
+  </section>
+
+  <div class="days">
+
+    <!-- Day 1 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 01</span>
+          <h2 class="day-title">到达 + 休息 + 国庆烟花</h2>
+        </div>
+        <div class="day-date">7月4日 周五 · 美国独立日</div>
+        <p class="day-narrative">长途飞行后不安排硬行程。下午在 Santa Clara 附近随便逛逛，晚上远观烟花。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Santana Row</span>
+            <span class="stop-time">3:00 PM · 2h</span>
+          </div>
+          <p class="stop-notes">下午倒时差时随便逛逛，有咖啡店和餐厅，氛围不错，不用赶时间。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=11779497823553162765" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Shoreline Lake 观景点</span>
+            <span class="stop-time">8:30 PM · 1h</span>
+          </div>
+          <p class="stop-notes">Mountain View 这边有烟花，Shoreline 区域能远远看到，不用挤人群。如果太累就跳过。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=14001271438156980260" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 2 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 02</span>
+          <h2 class="day-title">旧金山 · 金门大桥 + 红杉林 + 书店</h2>
+        </div>
+        <div class="day-date">7月5日 周六</div>
+        <p class="day-narrative">上午看桥和红杉，下午逛 North Beach 的 City Lights 书店，节奏宽松。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Golden Gate View Point</span>
+            <span class="stop-time">9:30 AM · 45min</span>
+          </div>
+          <p class="stop-notes">Marin 这侧的观景点能拍到完整的桥 + 城市天际线，早上去光线最好。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=11554020905102809087" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Muir Woods 红杉林</span>
+            <span class="stop-time">10:30 AM · 2h</span>
+          </div>
+          <p class="stop-notes">千年红杉林，非常震撼。必须提前在 recreation.gov 预约停车位！主步道 1-2 小时够了。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=8862899857279397881" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">City Lights Booksellers</span>
+            <span class="stop-time">3:30 PM · 1.5h</span>
+          </div>
+          <p class="stop-notes">垮掉派的文学圣地，地下室有大量社会学、哲学、政治类书籍。在 North Beach 意大利区，逛完顺便吃晚饭。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=11740907791137654846" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 3 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 03</span>
+          <h2 class="day-title">旧金山 · SFMOMA + Mission 街区</h2>
+        </div>
+        <div class="day-date">7月6日 周日</div>
+        <p class="day-narrative">上午看现代艺术，下午泡 Mission District，壁画、公园、好吃的。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">SFMOMA</span>
+            <span class="stop-time">10:30 AM · 2.5h</span>
+          </div>
+          <p class="stop-notes">七层楼的现代艺术博物馆，2-3 小时够了。周三闭馆所以安排在今天。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=14446598574612765181" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Clarion Alley 壁画街</span>
+            <span class="stop-time">2:30 PM · 30min</span>
+          </div>
+          <p class="stop-notes">整条巷子都是政治表达和社会议题的壁画，每隔几个月就换新的。注意周围环境。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=5899656399032971229" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Dolores Park</span>
+            <span class="stop-time">3:30 PM · 1h</span>
+          </div>
+          <p class="stop-notes">旧金山最有生活气息的公园，能看到城市天际线。带杯咖啡坐一会儿就行。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=11968567728930983264" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 4 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 04</span>
+          <h2 class="day-title">蒙特雷 + 卡梅尔海滨小镇</h2>
+        </div>
+        <div class="day-date">7月7日 周一</div>
+        <p class="day-narrative">往南开 1.5 小时，看水族馆，走 17 英里海岸线，逛童话小镇 Carmel。这天车程最多，但风景值得。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Monterey Bay Aquarium</span>
+            <span class="stop-time">10:00 AM · 3h</span>
+          </div>
+          <p class="stop-notes">全美最好的水族馆之一，海獭展区和巨型海藻缸值得慢慢看。门票约 $65，建议网上提前买。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=13089793790722612067" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">17-Mile Drive</span>
+            <span class="stop-time">2:00 PM · 1.5h</span>
+          </div>
+          <p class="stop-notes">沿海岸线的经典驾车路线，会经过 Lone Cypress 等标志性景点。入口费约 $12/车。</p>
+          <a class="stop-link" href="https://maps.google.com/?q=17+Mile+Dr" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Carmel-by-the-Sea</span>
+            <span class="stop-time">4:00 PM · 2h</span>
+          </div>
+          <p class="stop-notes">童话般的欧洲风格小镇，房子没有门牌号只有名字。在镇上随便走走，找家店吃晚饭再回。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=15186748888805626908" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 5 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 05</span>
+          <h2 class="day-title">海岸线休息日 · Half Moon Bay</h2>
+        </div>
+        <div class="day-date">7月8日 周二</div>
+        <p class="day-narrative">昨天车程较多，今天轻松一点。去海边吹吹风，下午回来休息。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Half Moon Bay State Beach</span>
+            <span class="stop-time">10:30 AM · 3h</span>
+          </div>
+          <p class="stop-notes">太平洋海岸线，安静的沙滩。7 月份也可能有风和雾，带件外套。沿海岸步道走走非常舒服。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=5252294340271575638" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 6 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 06</span>
+          <h2 class="day-title">硅谷朝圣日</h2>
+        </div>
+        <div class="day-date">7月9日 周三</div>
+        <p class="day-narrative">安排在周三，因为 Computer History Museum 周一周二不开。三个点距离很近，半天就够了。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Stanford University</span>
+            <span class="stop-time">9:30 AM · 1.5h</span>
+          </div>
+          <p class="stop-notes">校园很大很美，棕榈大道和主广场走走就行，Memorial Church 值得看。想买 Stanford 周边纪念品可以去校园书店。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=3012327721397938303" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Computer History Museum</span>
+            <span class="stop-time">12:00 PM · 2.5h</span>
+          </div>
+          <p class="stop-notes">做 AI 的人必去。从打孔卡到 GPU 的计算史，还有 IBM 1401 实物演示。可以待 2-3 小时。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=16897630476699628786" target="_blank">→ Google Maps</a>
+        </div>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Apple Park Visitor Center</span>
+            <span class="stop-time">3:30 PM · 45min</span>
+          </div>
+          <p class="stop-notes">本质上是个高端 Apple Store + 屋顶露台看飞船总部。有独家周边可以买。半小时足够。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=1675864779563151232" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 7 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 07</span>
+          <h2 class="day-title">自由日 + 收拾行李</h2>
+        </div>
+        <div class="day-date">7月10日 周四</div>
+        <p class="day-narrative">最后一天留给自己。补想去没去的地方，或者和朋友在附近吃顿好的，买纪念品，收拾行李。</p>
+
+        <div class="stop">
+          <div class="stop-top">
+            <span class="stop-name">Santana Row</span>
+            <span class="stop-time">11:00 AM · 2h</span>
+          </div>
+          <p class="stop-notes">可以回来吃个 brunch，买点东西。或者完全自由安排。</p>
+          <a class="stop-link" href="https://maps.google.com/?cid=11779497823553162765" target="_blank">→ Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 8 -->
+    <section class="day">
+      <div class="day-inner">
+        <div class="day-header">
+          <span class="day-number">DAY 08</span>
+          <h2 class="day-title">回家</h2>
+        </div>
+        <div class="day-date">7月11日 周五</div>
+        <p class="day-narrative">中午 12:00 SFO 起飞。从 Santa Clara 到机场约 40 分钟，建议 9:00 出发，留够安检时间。</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Reminders -->
+  <section class="reminders">
+    <h2>出发前备忘</h2>
+    <div class="reminder-grid">
+      <div class="reminder-card">
+        <div class="rc-title"><span class="emoji">🎫</span> 提前预订</div>
+        <p>Muir Woods 停车位 → recreation.gov<br>Monterey Bay Aquarium 门票 → 官网约 $65</p>
+      </div>
+      <div class="reminder-card">
+        <div class="rc-title"><span class="emoji">🧥</span> 天气</div>
+        <p>旧金山 7 月经常有雾，体感可能只有十几度。一定带外套，尤其海边和金门大桥。</p>
+      </div>
+      <div class="reminder-card">
+        <div class="rc-title"><span class="emoji">⏰</span> 闭馆日</div>
+        <p>Computer History Museum 周一周二关门<br>SFMOMA 周三关门<br>行程已避开</p>
+      </div>
+      <div class="reminder-card">
+        <div class="rc-title"><span class="emoji">😴</span> 时差</div>
+        <p>上海→旧金山倒 15 小时时差，前 2-3 天下午可能突然困，正常的，别安排太紧。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made with ☕ by Sia & Claude · June 2026</p>
+  </footer>
+
+</body>
+</html>
